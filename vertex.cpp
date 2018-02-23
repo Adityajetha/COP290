@@ -3,14 +3,14 @@
 
 public class vertex{
                     public double x,y,z;
-                    public rotat(double a,double b,double c)
+                    public rotat(double aq,double bq,double cq)
                     {
-                        double d = 1/sqrt(a*a+b*b+c*c);
-                        double ad = a/d;
-                        double bd = b/d;
-                        double cd = c/d;
-                        x = ad*x - bd*y -cd*z;
-                        y = (c*y/sqrt (b*b + c*c)) - (b*z/sqrt (b*b + c*c));
+                        double d = sqrt(aq*aq+bq*bq+cq*cq);
+                        double a = a/d;
+                        double b = b/d;
+                        double c = c/d;
+                        double e = sqrt(b*b + c*c);
+                        x = (e*e*x - a*b*y -a*c*z)/e;
+                        y = (c*y/e) - (b*z/e);
                         z = 0;
                     }
-
