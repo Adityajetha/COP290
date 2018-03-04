@@ -5,7 +5,7 @@ class vertex{}
 
 public class three2 {
              int num,a,b,c;
-             vertex ver[] = new ver[num];
+             vertex ver[] = new vertex[num];
              bool edge[][] = new bool[num][num];
              
              void vertexinp(vertex[] v){};
