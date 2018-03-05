@@ -15,9 +15,18 @@ public class two3{
                valid=valid && yz();
                valid=valid && xz();
              }
+               
   if(opn)
     createedge();
   else
     edgelist();
              }
+  
+  bool adj_matrix = new bool[num][num];
+  for each edge 
+  {
+    adj_matrix[ver_1][ver_2] = true;
+  }
+  
+  conversion(ver[], adj_matrix[][]);
 }
