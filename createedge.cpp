@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "two3.h"
 
 void createedge(bool[][] edge)
 {
