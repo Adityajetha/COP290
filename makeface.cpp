@@ -1,15 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include<vertex.h>
-makeface() 
-{
-  bool[][] adj_matrix;
-  vertex[] ver;
+#include <bits/stdc++.h>
 
-  graph = makeGraph(adj_matrix); //makes graph with every vertex as a node and every corresponding edge added 
-  for every common vertex 
-  {
-    checkLoop(graph); //implemented using dfs search of the graph   
-  }    
-  
+std::vector<face> faces makeface(int num,vertex[] ver,bool[][] edge) 
+{
+  ///To make all the faces possible for each vertex
+  std::vector<int> graph[] = new std::vector<int> [num];
 }  
