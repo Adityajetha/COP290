@@ -6,7 +6,7 @@ vertex::vertex(double xt,double yt,double zt)
 {
   x(xt);
   y(yt);
-  z(Zt);
+  z(zt);
 }
 
 vertex::rotat(double aq,double bq,double cq)
