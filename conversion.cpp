@@ -5,6 +5,7 @@
 
 conversion(vertex[],bool[][]){
   int num_common_vertex;
+  bool[][] adj_matrix;
 for each common vertex 
 {
   makeface(); // returns face array containing all possible faces formed by edges 
