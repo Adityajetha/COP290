@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include<vector>
 #include<edge.h>
-#include:two3.h"
+#include "two3.h"
 
 two3::findedgeloop(bool[][] edges) 
 {
