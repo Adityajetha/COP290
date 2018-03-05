@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <math.h>
+#include "vertex.h"
 
 public class vertex{
                     public double x,y,z;
