@@ -2,6 +2,5 @@
 #include <stdio.h>
 
 void xy (vertex v, double x, double y){
-         v.x = x;
-         v.y = y;
+         ///To set the x and y coordinates of the vertex
 }
