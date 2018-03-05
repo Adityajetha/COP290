@@ -1,4 +1,7 @@
 #include <stdio.h>
+#include"findedgeloops.h"
+#include"create_3D.h"
+#include"makeface.h"
 
 conversion(ver[],adj_matrix[][]){
   int num_common_vertex;
