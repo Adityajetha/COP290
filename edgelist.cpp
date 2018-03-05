@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "edgelist.h"
+#include "two3.h"
 
 void edgelist(bool[][] edge)
 {
