@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include "vertex.h"
 
-class vertex;
 
 public class three2 {
              int num ////num is the number of vertices
