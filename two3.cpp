@@ -2,11 +2,9 @@
 #include "vertex.h"
 #include "createedge.h"
 #include "edgelist.h"
-#include "conversion.h"
-#include "two3.cpp"
+#include "two3.h"
 
-public class two3{
-             public static void main(){
+ two3::public: static void main(){
              /*
              for each vertex
              {
@@ -21,5 +19,4 @@ public class two3{
                          ///for each edge adj_matrix[ver_1][ver_2] is true
              */}
   
-  conversion(ver, adj_matrix); ///makes all the faces
-}
+  two3::conversion(ver, adj_matrix); ///makes all the faces
