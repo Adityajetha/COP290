@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "vertex.h"
-#inlude "createedge.h"
+#include "createedge.h"
 #include "edgelist.h"
 #include "conversion.h"
 
