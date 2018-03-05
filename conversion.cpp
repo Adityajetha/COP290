@@ -3,7 +3,7 @@
 #include"makeface.h"
 #include <bits/stdc++.h>
 
-two3::void conversion (vertex[] ver,bool[][] edges){
+two3::conversion (vertex[] ver,bool[][] edges){
   int num_common_vertex;
   bool[][] adj_matrix;
   std::vector<face> faces;
