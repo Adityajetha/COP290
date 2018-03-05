@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-makeGraph()
+makeGraph(adj_matrix)
 {
   bool[][] adj_matrix;
   struct AdjListNode
