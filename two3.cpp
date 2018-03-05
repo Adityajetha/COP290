@@ -11,13 +11,13 @@ public class two3{
              bool opn;///opn selects whether edges are given or not 
              vertex ver[] = ver[num];///array of all the vertices
              public static void main(){
-             cin>>opn;
+             /*
              for each vertex
              {
                xy();
                valid=valid && yz();
                valid=valid && xz();
-             }             
+             } */            
   if(!opn)
     createedge(adj_matrix);///input does not contain the edges
   else
