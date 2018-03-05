@@ -1,8 +1,5 @@
 #include <stdio.h>
 #include "vertex.h"
-#include "createedge.h"
-#include "edgelist.h"
-#include "conversion.h"
 
 public class two3{
              int num;///num is the number of vertices
