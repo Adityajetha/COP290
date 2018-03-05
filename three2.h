@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "vertex.h"
-
+#include <bits/stdc++.h>
 
 public class three2 {
              public : int num; ////num is the number of vertices
@@ -23,6 +23,5 @@ public class three2 {
                ///Function to take the plane as input we want to draw the projection along
              }
              }
-             
-                    }
+            
                     
