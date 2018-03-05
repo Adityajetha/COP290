@@ -12,15 +12,15 @@ public class three2 {
                         ///edge[i][j] is true if edge exists between the vertices i,j
              void vertexinp(vertex[] v)
              {
-               ////Fuction to take inputs of all the vertices
+               ///Fuction to take inputs of all the vertices
              }
              void edgeinp(bool[][] e)
              {
-              ////Fuction to take all the edges as input 
+              ///Fuction to take all the edges as input 
              }
              void planeinp(int* a,int* b,int* c)
              {
-               ////Function to take the plane as input we want to draw the projection along
+               ///Function to take the plane as input we want to draw the projection along
              }
              public static void main(string[] args){
              vertexinp(ver);
