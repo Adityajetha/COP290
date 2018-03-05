@@ -3,7 +3,7 @@
 #include"create_3D.h"
 #include"makeface.h"
 
-conversion(ver[],adj_matrix[][]){
+conversion(vertex[],bool[][]){
   int num_common_vertex;
 for each common vertex 
 {
@@ -14,11 +14,7 @@ for each common vertex
 }
   for each face
   {
-    findedgeloops(); 
-    for all edge loop 
-    {
-      adj_matrix[ver_1][ver_2] = false;
-    }
+    findedgeloops(adj_matrix[][]); 
   }
   
   create_3D(adj_matrix[][],face_list[]);  
