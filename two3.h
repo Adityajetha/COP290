@@ -11,5 +11,5 @@ public class two3{
              bool opn;///opn selects whether edges are given or not 
              vertex ver[] = ver[num];///array of all the vertices
              public: static void main()
-             conversion(ver, adj_matrix); ///makes all the faces
+             void conversion(ver, adj_matrix); ///makes all the faces
 }
