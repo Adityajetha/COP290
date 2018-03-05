@@ -21,7 +21,5 @@ for each common vertex
     }
   }
   
-  create_3D(adj_matrix[][],face_list[]);
-  
-  
+  create_3D(adj_matrix[][],face_list[]);  
 }
