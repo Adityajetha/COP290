@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "vertex.h"
+#include "three2.h"
 
 
 public class three2 {
