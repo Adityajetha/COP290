@@ -17,6 +17,7 @@ public class two3{
              public: void xy (vertex v, double x, double y);///takes input from top view
              public: bool xz (vertex v, double z, double x);///takes input from side view
              public: bool yz (vertex v, double y, double z);/// takes input from front view
+             public: void createedge(bool[][] edge);///it takes input from all the views, when opn=0, and gives their intersection
              public: static void main();
              public: std::vector<face> conversion(vertex ver,bool[][] adj_matrix); ///makes all the faces
              public: bool[][] findedgeloops(bool[][] adj);///removes impossible edges
