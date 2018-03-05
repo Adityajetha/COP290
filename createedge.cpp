@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "two3.h"
 
-void createedge(bool[][] edge)
+two3::void createedge(bool[][] edge)
 {
   int num;///number of vertices
   bool[][] top = new bool[num][num];///edges in top view
