@@ -2,7 +2,7 @@
 #include<vector>
 
 
-create_3D(bool[n][n],vertex[num_vertex])
+two3::create_3D(bool[][] edge,vertex[] ver)
 {
   adj_matrix;
    vector<face> face_list;
