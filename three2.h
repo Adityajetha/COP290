@@ -1,3 +1,7 @@
+#include <GL/glui.h>
+#include <OpenGL/gl.h>
+#include <OpenGl/glu.h>
+#include <GLUT/glut.h>
 #include <stdio.h>
 #include "vertex.h"
 #include <bits/stdc++.h>
