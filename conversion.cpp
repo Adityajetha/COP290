@@ -5,6 +5,9 @@ conversion(ver[],adj_matrix[][]){
 for each common vertex 
 {
   makeface(); // returns face array containing all possible faces formed by edges 
+  int num_face;
+  face face_list[] = new face[num_face];
+  
 }
   for each face
   {
@@ -15,7 +18,7 @@ for each common vertex
     }
   }
   
-  create_3D();
+  create_3D(adj_matrix[][],face_list[]);
   
   
 }
