@@ -18,8 +18,10 @@ public class two3{
              public: bool xz (vertex v, double z, double x);///takes input from side view
              public: bool yz (vertex v, double y, double z);/// takes input from front view
              public: void createedge(bool[][] edge);///it takes input from all the views, when opn=0, and gives their intersection
+             public: void edgelist(bool[][] edge);///it takes inputs from the users to give the edges, in case opn =1
              public: static void main();
-             public: std::vector<face> conversion(vertex ver,bool[][] adj_matrix); ///makes all the faces
+             public: std::vector<face> makeface(int num,vertex[] ver,bool[][] edge);///makes all the faces
+             public: std::vector<face> conversion(vertex ver,bool[][] adj_matrix); ///makes wireframe
              public: bool[][] findedgeloops(bool[][] adj);///removes impossible edges
              public: void create_3D(bool[][] edge,std::vector<face> faces);///final step 
 }
