@@ -15,5 +15,7 @@ for each common vertex
     }
   }
   
+  create_3D();
+  
   
 }
