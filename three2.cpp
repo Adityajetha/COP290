@@ -5,7 +5,7 @@
              three2::bool[][] edge = new bool[num][num]; 
              three2::vertex[] ver = new vertex[num];
              three2::bool[][] edge;
-             three2::vertexinp(vertex[] v)
+             three2::vertexinp()
              {
                std::cin>>num;
                ///Fuction to take inputs of all the vertices
@@ -17,7 +17,7 @@
                   cin>>ver[i].z;
                 }
              }
-             three2::void edgeinp(bool[][] e)
+             three2::void edgeinp()
              {
                edge=new bool[num][num]
                  for(int i = 0;i<num;i++)
@@ -30,7 +30,7 @@
                
               ///Fuction to take all the edges as input 
              }
-             three2::void planeinp(int* a,int* b,int* c)
+             three2::void planeinp(double* a,double* b,double* c)
              {
                cin>>*a;
                cin>>*b;
@@ -39,9 +39,25 @@
              }
              three2::public: static void main(string[] args){
                
-             vertexinp(ver);
-             edgeinp(edge);
+             vertexinp();
+             edgeinp();
+             bool next = false;
+             bool another = true;
+             while(!bool)
+             {
+              if(another)
+              {
+              planeinp();
+              for(int i =0;i<num;i++)
+              {
+                ver[i].rotat(*a,*b,*c);
+              }
+              ///store/print projection
+              }
+              if(/*next dabaya*/) next=true; 
+              else next= false;
              }
-             
+             /*here give the output*/
+             }  
                     
                     
