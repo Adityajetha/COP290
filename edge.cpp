@@ -13,23 +13,23 @@ edge::edge(vertex ver_1,vertex ver_2,bool[][] edge)
   
 }
 
-edge::int num_ver=0;
+public::int num; //number of the vertices
 edge::bool[][] edge = new bool[num_ver][num_ver] ;
-edge::int num = 0;
+edge::int n = 0;
 
 edge:: void edgeinp()
 {
 	std::cout <<"Enter the number of all the vertices:"<< endl;
-               std::cin>>num_ver;
+               std::cin>>num;
 
 	std::cout << "Enter the number of edges:" << endl;
-	std::cin >> num;
+	std::cin >> n;
 	bool point; // a parameter to define how the input is given
 	cout << "Point to point entry?"<<endl;
 	cin>>point;
 	if (point = true){
 	int l = 0;
-	while (l < num) {
+	while (l < n) {
 		int v1 = 0;
 		int v2 = 0;
 		std::cout << "Enter the first vertex:"<<endl;
@@ -41,7 +41,8 @@ edge:: void edgeinp()
 		l++;
 	}
 	}
-	else{
+	else
+	{
 	edge=new bool[num][num]
     	for(int i = 0;i<num;i++)
     	{
@@ -55,17 +56,18 @@ edge:: void edgeinp()
 
 edge::public: static void main(string[] args){
 	//xy
-	bool[][] xy_edge = new bool[num_ver][num_ver];
+	bool[][] xy_edge = new bool[num][num];
 	edgeinp();
 	xy_edge = edge;
 	//yz
-	bool[][] yz_edge = new bool[num_ver][num_ver];
+	bool[][] yz_edge = new bool[num][num];
 	edgeinp();
 	yz_edge = edge;
 	//zx
-	bool[][] zx_edge = new bool[num_ver][num_ver];
+	bool[][] zx_edge = new bool[num][num];
 	edgeinp();
 	zx_edge = edge;
 
 	// return edge;
 }
+
