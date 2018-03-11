@@ -56,15 +56,15 @@ edge:: void edgeinp()
 
 edge::public: static void main(string[] args){
 	//xy
-	bool[][] xy_edge = new bool[num][num];
+	public::bool[][] xy_edge = new bool[num][num];
 	edgeinp();
 	xy_edge = edge;
 	//yz
-	bool[][] yz_edge = new bool[num][num];
+	public::bool[][] yz_edge = new bool[num][num];
 	edgeinp();
 	yz_edge = edge;
 	//zx
-	bool[][] zx_edge = new bool[num][num];
+	public::bool[][] zx_edge = new bool[num][num];
 	edgeinp();
 	zx_edge = edge;
 
