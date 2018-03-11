@@ -43,13 +43,13 @@ edge:: void edgeinp()
 	}
 	else{
 	edge=new bool[num][num]
-    for(int i = 0;i<num;i++)
-    {
-        for(int j = 0;j<num;j++)
-        {
-            cin>>edge[i][j]; // Scaning from terminal
-        }
-    } 
+    	for(int i = 0;i<num;i++)
+    	{
+        	for(int j = 0;j<num;j++)
+        	{
+            	cin>>edge[i][j]; // Scaning from terminal
+        	}
+    	} 
 	}
 }
 
