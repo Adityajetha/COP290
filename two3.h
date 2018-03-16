@@ -21,6 +21,9 @@ public class two3{
              ///Vector of all the faces possible(not all real)
              public: std::vector<face> faces;
              ///takes input from top view
+             public: std::vector<face> makeface(int num,vertex[] ver,bool[][] edge); 
+             public : void createedge(bool[][] edge);
+                        ////dekhta hu
              public: void xy (vertex v, double x, double y);
              ///takes input from side view
              public: bool xz (vertex v, double z, double x);
