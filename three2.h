@@ -14,7 +14,7 @@ public class three2 {
                         ///aray of vertices
              public : bool edge[][] = new bool[num][num];
                         ///edge[i][j] is true if edge exists between the vertices i,j
-             public : void createedge(bool[][] edge)
+             public : void createedge(bool edge[][])
                         ////dekhta hu
              public : void vertexinp(vertex[] v)
              
