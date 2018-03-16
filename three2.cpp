@@ -2,7 +2,7 @@
 #include <string.h>
 #include "vertex.h"
 #include "three2.h"
-void three2::vertexinp()
+void three::vertexinp()
 {
     cin>>num;
     ///Fuction to take inputs of all the vertices
@@ -14,7 +14,7 @@ void three2::vertexinp()
         std::cin>>ver[i].z>>std::end;
     }
 }
-void three2::edgeinp()
+void three::edgeinp()
 {
     edge=new bool[num][num];
     for(int i = 0;i<num;i++)
@@ -27,7 +27,7 @@ void three2::edgeinp()
 
     ///Fuction to take all the edges as input
 }
-void three2::planeinp(double* a,double* b,double* c)
+void three::planeinp(double* a,double* b,double* c)
 {
     cin>>*a;
     cin>>*b;
@@ -35,12 +35,13 @@ void three2::planeinp(double* a,double* b,double* c)
     ///Function to take the plane as input we want to draw the projection along
 }
 
-void three2::createedge(bool edge[][])
+void three::createedge(bool edge[][])
 {
 }
 
-three2::main(int argc,char* args[]){
+void main(int argc,char* args[]){
 
+    
     vertexinp();
     edgeinp();
     bool next = false;
