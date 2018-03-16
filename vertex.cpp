@@ -18,7 +18,7 @@ void vertex::rotat(double aq,double bq,double cq)
     double e = sqrt(b*b + c*c);
     x = (e*e*x - a*b*y -a*c*z)/e;
     y = (c*y/e) - (b*z/e);
-    z = 0;
+    z = a*x+b*y+c*z;
     ///To rotate the vertex
 }
 
