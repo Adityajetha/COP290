@@ -1,1 +1,0 @@
-void createedge(bool[][] edge)
