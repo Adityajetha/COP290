@@ -2,6 +2,12 @@
 #include <string.h>
 #include "vertex.h"
 #include "three2.h"
+
+void three::three(int n){
+                         three::num=n;
+                         three::edge = new bool[n][n];
+                        three::ver = new vertex[n]
+                        }
 void three::vertexinp()
 {
     cin>>num;
@@ -41,7 +47,7 @@ void three::createedge(bool edge[][])
 
 void main(int argc,char* args[]){
 
-    
+    three maino = new three();
     vertexinp();
     edgeinp();
     bool next = false;
