@@ -6,7 +6,7 @@
 #include "vertex.h"
 #include <bits/stdc++.h>
 
-public class three2 {
+public class three {
              public : int num; ////num is the number of vertices
              public : int a,b,c; ////a,b,c are respectively the x,y and z coefficients of the direction vector perpendicular to the
                         ////plane we want to take the projection about
