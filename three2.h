@@ -19,7 +19,7 @@ public class three2 {
              public : void vertexinp(vertex[] v)
              
                ///Fuction to take inputs of all the vertices
-             public : void edgeinp(bool[][] e)
+             public : void edgeinp(bool e[][])
               ///Fuction to take all the edges as input 
              
              public : void planeinp(int* a,int* b,int* c)
