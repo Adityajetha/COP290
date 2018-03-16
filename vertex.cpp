@@ -9,7 +9,7 @@ vertex::vertex(double xt,double yt,double zt)
     z(zt);
 }
 
-vertex::rotat(double aq,double bq,double cq)
+void vertex::rotat(double aq,double bq,double cq)
 {
     double d = sqrt(aq*aq+bq*bq+cq*cq);  ///Normalisation constant
     double a = aq/d;                     ///(a,b,c) is unit vector along the perpendicular to the normal
@@ -21,3 +21,22 @@ vertex::rotat(double aq,double bq,double cq)
     z = 0;
     ///To rotate the vertex
 }
+
+vertex vertex::cross(vertex v,vertex u)
+{
+    vertex ans = new vertex(0,0,0);
+    ans.x = v.y * u.z - v.z * u.y;
+    ans.y = v.z * u.x - v.x * u.z;
+    ans.z = v.x * u.y - v.y * u.x;
+    return ans;
+}
+
+vertex vertex::sub(vertex v, vertex u)
+{
+    vertex ans = new vertex(0,0,0);
+    ans.x = v.x - u.x;
+    ans.y = v.y - u.y;
+    ans.z = v.z - u.z;
+    return ans;
+}
+
