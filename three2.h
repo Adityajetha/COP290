@@ -14,18 +14,17 @@ public class three2 {
                         ///aray of vertices
              public : bool edge[][] = new bool[num][num];
                         ///edge[i][j] is true if edge exists between the vertices i,j
+             public : void createedge(bool[][] edge)
+                        ////dekhta hu
              public : void vertexinp(vertex[] v)
-             {
+             
                ///Fuction to take inputs of all the vertices
-             }
              public : void edgeinp(bool[][] e)
-             {
               ///Fuction to take all the edges as input 
-             }
+             
              public : void planeinp(int* a,int* b,int* c)
-             {
-               ///Function to take the plane as input we want to draw the projection along
-             }
+             
+               ///Function to take the plane as input we want to draw the projection alone
              }
             
                     
