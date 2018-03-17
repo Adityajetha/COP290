@@ -10,13 +10,14 @@ public class three {
              public : int num; ////num is the number of vertices
              public : int a,b,c; ////a,b,c are respectively the x,y and z coefficients of the direction vector perpendicular to the
                         ////plane we want to take the projection about
-             public : vertex ver[] = new vertex[num];
+             public : three(int n);
+             public : vertex ver[];
                         ///aray of vertices
-             public : bool edge[][] = new bool[num][num];
+             public : bool edge[][];
                         ///edge[i][j] is true if edge exists between the vertices i,j
              public : void createedge(bool edge[][]);
                         ////dekhta hu
-             public : void vertexinp(vertex[] v);
+             public : void vertexinp(vertex v[]);
              
                ///Fuction to take inputs of all the vertices
              public : void edgeinp(bool e[][]);
