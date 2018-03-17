@@ -1,4 +1,5 @@
 #include "vertex.h"
+#include "vector.h"
 
 class edge{
                     public: edge(vertex vert[], bool adj_matri[][]);
@@ -6,6 +7,7 @@ class edge{
                     public : bool adj_matrix[][]; /// adjacency matrix
                     public: vertex ord[];
                     public: int solid[][];
+                    public: bool iscov(vertex v, vector<vertex> plane);
                     public : bool che_hid(vertex v);///checks if vertex is hidden or not
                     public : void create();
              }; 
