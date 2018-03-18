@@ -1,8 +1,9 @@
 #include "vertex.h"
+#include <string.h>
 #include <vector>
 
 class edge{
-                    public: edge(vertex vert[], bool adj_matri[][],vector<vector<vertex>> fa);
+                    public: edge(string file);
                     public: vertex ver[];                       ///ver_1,ver_2 coordinates of vertex
                     public : bool adj_matrix[][]; /// adjacency matrix
                     public: vertex ord[];
