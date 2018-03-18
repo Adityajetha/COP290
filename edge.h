@@ -2,7 +2,7 @@
 #include <vector>
 
 class edge{
-                    public: edge(vertex vert[], bool adj_matri[][]);
+                    public: edge(vertex vert[], bool adj_matri[][],vector<vector<vertex>> fa);
                     public: vertex ver[];                       ///ver_1,ver_2 coordinates of vertex
                     public : bool adj_matrix[][]; /// adjacency matrix
                     public: vertex ord[];
