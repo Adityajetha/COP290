@@ -40,3 +40,8 @@ vertex vertex::sub(vertex v, vertex u)
     return ans;
 }
 
+double vertex::dot(vertex v)
+{
+    return (x*v.X + y*v.y + z*v.z);
+}
+
