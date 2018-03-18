@@ -1,5 +1,5 @@
 #include "vertex.h"
-#include "vector.h"
+#include <vector>
 
 class edge{
                     public: edge(vertex vert[], bool adj_matri[][]);
