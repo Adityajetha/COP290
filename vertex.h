@@ -4,4 +4,5 @@ class vertex{
                     public: void rotat(double aq,double bq,double cq); ///To rotate the vertex for 3D to 2D projection.
                     public: vertex cross(vertex v,vertex u);
                     public: vertex sub(vertex v, vertex u);
+  public: double dot(vertex v);
              };       
