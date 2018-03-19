@@ -5,15 +5,26 @@
 #include <stdio.h>
 #include <math.h>
 #include "edge.h"
-
-edge::edge(vertex ver_1,vertex ver_2,bool[][] edge)
+#include <string.h>
+#include "vertex.h"
+#include <fstream>
+using namespace std;
+edge::edge(string file)
 {
-  v1(ver_1);
-  v2(ver_2);
-  
+	ifstream inFile;
+	inFile.open(file);
+  if (!inFile) {
+    cerr << "Unable to open file datafile.txt";
+    exit(1);   // call system to stop
 }
-
-public::int num; //number of the vertices
+	inFile>>num;
+	ver = new vector[num];
+	adj_matrix = new bool[num][num];
+	for(i=0;i<num;i++){
+		inFile>>ver[i]->x>>ver[i]->y>>ver[i]->z;
+	}
+}
+/* //number of the vertices
 edge::bool[][] edge = new bool[num_ver][num_ver] ;
 edge::int n = 0;
 
@@ -69,5 +80,5 @@ edge::public: static void main(string[] args){
 	zx_edge = edge;
 
 	// return edge;
-}
+}*/
 
