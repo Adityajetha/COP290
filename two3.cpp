@@ -4,28 +4,6 @@
 #include "edgelist.h"
 #include "two3.h"
 
- two3::public: static void main(){
-             /*
-             for each vertex
-             {
-               xy();
-               valid=valid && yz();
-               valid=valid && xz();
-             }           
-  if(!opn)
-    createedge(edge);///input does not contain the edges
-  else
-    edgelist(edge);///input contains the edges
-                         ///for each edge edge[ver_1][ver_2] is true
-             */}
-  
-  two3::conversion(ver, edge); ///makes all the faces
-#include <stdio.h>
-#include "vertex.h"
-#include "createedge.h"
-#include "edgelist.h"
-#include "two3.h"
-
 class two3 {
 
 public: bool opn;
@@ -79,19 +57,34 @@ two3 :: void detectEdge(){
 
 //ver[] is the vertex array and edge[][] is the adjacency matrix. So, we have detected the vertices and the edges
 
-two3 :: void findedgeloop(){
+bool two3::checkLoop(int a, int b){ 
+ 
+}
+   
+void two3::findedgeloop(){
   //finds the edgehoops
   bool[][] edge;
   vertex[] ver;
   sort(ver, ver + num); //sorts the vertices, but check if it will.
-
+  for (int i = 0; i < ver.size(); i++){ 
+   for(int j = 0; j < ver.size(); j++){
+  {
+   if (checkLoop(i,j) ) 
+   {
+      adj_matrix[i][j] = false; 
+   }
+    else 
+    {continue;}
+    //checks if its an edge loop or not
+  }
+  }
 
 }
 
 two3 :: void makeface(){
-  std::vector<face> facelist;
-  std::vector<face> :: iterator iter;
-  std::vector<face> :: reverse_iterator iter_r;
+  std::vector<vector<vertex>> facelist;
+  std::vector<vector<vertex>> :: iterator iter;
+  std::vector<vector<vertex>> :: reverse_iterator iter_r;
   int num_faces = facelist.size();
   //finds the faces constructed using the actual edge list and the vertices
 
@@ -117,15 +110,30 @@ two3:: void checkface(){
   }
 
 }
+ 
+vector<vector<vertex>>* two3::makeWireframe(Projection myproj, vector<vector<vertex>> ){
+///
+  ///
+  /// Input output taken care by Jetha. Make sure this is compatible.
+  ///
+        // we have top front side
+        vector<vector<vertex>> frame;
+    // my projection is the 2D projection.
+        myproj.frontview = front;
+        myproj.sideview = side;
+        myproj.topview = top;
+        // frontview is the front view.
+        // topview is the top view
+        // sideview is the side view
+        frame = myproj.create3D();
+        vector<vector<vertex>>* retFrame;
+        retFrame = new vector<vector<vertex>>();
+        
+}
 
 two3:: void isometricview(){
   //produce using 3D description an isometric drawing from any view direction
   /////
 }
 
-public: void conversion(vertex ver[],bool edges[][]){
-        int num_common_vertex;
-        bool edge[][];
-        std::vector<face> faces;
-    } ///makes all the faces
-};
+}
