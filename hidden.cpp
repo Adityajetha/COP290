@@ -92,11 +92,14 @@ bool create3D::rayCast(Vertex ver, vector<vertex> face){
 		//Code to check if the vertex lies using "current", "next" , "prev"
 		//
 		//NAHI BANAYA ABHI TAK. :3
+		
 		i++;
 	}
 
 	
 }
+
+
 
 bool create3D::checkHiddenVertex(Vertex ver, vector<vertex> face, double plane[4]){
 	///
@@ -124,6 +127,46 @@ bool create3D::checkHiddenVertex(Vertex ver, vector<vertex> face, double plane[4
 	}
 	return ans;
 } 
+
+vector<int> create3D::hiddenVertex (Vertex vertex[], bool edgelist[][], vector<vector<vertex>> facelist){
+	///
+	///given an array of vertices "vertex" with facelist being the list of all the faces and vertex 0 stored as 
+	/// vector<vector<0>>.
+	///
+	
+	int size = vertex.size();
+	int[] hidden = new int[size]; //keeps track of hidden vertices
+	vector<(int,int)> vertexhiddenbyface = new vector<>(); //keeps track of which vertex is hidden by which face
+	for (int i = 0; i < size; i++){
+		Vertex v = vertex[i];
+		//double zcoordinate = v.z;
+		int numoffaces = facelist.size();
+		for (int j = 0; j < numoffaces; j++){
+ 			Vector<vertex> face = facelist.at(j);;
+			Vector3D vertex1, vertex2, vertex3;
+			vertex1 << ver1.x, ver1.y, ver1.z;
+			vertex2 << ver2.x, ver2.y, ver2.z;
+			vertex3 << ver3.x, ver3.y, ver3.z;
+			Vector3D direction1 = vertex2 - vertex1;
+			Vector3D direction2 = vertex3 - vertex1;
+			Vector3D perp = direction2.cross(direction1);
+			double d = math.sqrt(perp.x*perp.x + perp.y*perp.y + perp.z*perp.z);
+			double n = perp.dot(vertex1);
+			Vector3D normal = perp / d;
+			double[4] plane = new double[];
+			plane = {perp.x, perp.y, perp.z, n}; 
+			if (checkHiddenVertex(v, face, plane)){hidden[i] = 1;
+							      vertexhiddenbyface.push_back((i,j));}
+			else {continue;}
+			
+		}
+	}
+	vector<int> hiddenvertices = new vector<int>();
+	for (int i = 0; i < size; i ++){
+	if (hidden[i] == 1) { hiddenvertices.add(i);}	
+	}
+	return hiddenvertices;	
+}
 
 bool create3D::checkHiddenEdge(Edge edge, std::vector<vertex> face, double plane[4]){
 	///
