@@ -1,13 +1,8 @@
-#include <stdio.h>
-#include<vector>
+#include <iostream>
+#include <vector>
+#include <map>
+#include <unordered_map>
+#include "two3.h"
 
 
-void two3::create_3D(bool[][] edge,vertex[] ver)
-{
-  adj_matrix;
-   vector<face> face_list;
-  int n,num_vertex;
-  for all face{
-  checkFace(face_list, adj_matrix){};}
-  
-}
+
