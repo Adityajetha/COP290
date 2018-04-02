@@ -58,8 +58,8 @@ bool pointlies(Vertex ver, vector<Vertex> face){
 		}
 	}
 	if (flag == 1) {return true;}
-	Vector3D pointVertex;
-	pointVertex << ver.x, ver.y, ver.z ;
+	Vector3D pointvertex;
+	pointvertex << ver.x, ver.y, ver.z ;
 	Vector3D startvertex;
 	Vector3D next;
 	Vector3D nextTonext;
@@ -87,6 +87,12 @@ bool pointlies(Vertex ver, vector<Vertex> face){
 		//
 		//Code to check if the vertex lies using "current", "next" , "prev"
 		//
+		Vector3D currvector, prevvector, nextvector;
+		currvector << currvector.x,  currvector.y,  currvector.z;
+		prevvector << prevvector.x, prevvector.y, prevvector.z;
+		nextvector << nextvector.x,  nextvector.y,  nextvector.z;
+		Vector3D pointdotcurr << pointvetrex.dot(currvector);
+		Vector3D 
 		
 		
 		i++;
