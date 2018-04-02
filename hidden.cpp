@@ -12,31 +12,27 @@ Vertex projection (Vertex v, double plane[4]){
 	///
 	/// Function which returns the projection of a vertex on the given "plane" which has a,b,c,n stored where ax + by+ cz = d.r is the equation of the plane
 	///
-	Vertex answer;
 	Vector3D origin = (0,0,0);
 	Vector3D ver;
 	ver << v.x, v.y, v.z ;
 	Vector3D dir = ver - origin;
-	Vector3D normal;
 	normal << plane[0], plane[1], plane[2];
-	double dist = math.sqrt(plane[0]*2 + plane[1]*2 + plane[2]*2);
-	normal = normal / dist;
-	double dotprod = normal.dot(dir);
-	Vector3D newnormal;
-	newnormal = dotprod*normal;
-	Vector3D projectedpoint;
-	projectedpoint = ver - newnormal;
-	answer.x = ver.x ;
-	answer.y = ver.y ;
-	answer.z = ver.z ;
-	return answer;
+	double a = plane[0];
+	double b = plane[1];
+	double c = plane[2];
+	Vertex projectedpoint;
+	double n = ((plane[3]-(a*v.x+b*v.y+c*v.z))/(a*a+b*b+c*c));
+	projectedpoint.x = (ver.x + a*n) ;
+	projectedpoint.y = (ver.y + b*n) ;
+	projectedpoint.z = (ver.z + c*n) ;
+	return projectedpoint;
 }	
 
 double relative (Vertex v, double plane[4]){
 	///
 	/// Mathematical function which computes the relative position of a point wrt a "plane" which has a,b,c,n stored where ax + by+ cz = d.r is the equation of the plane
 	///
-	int val; 
+	 
 	Vector3D ver;
 	ver << v.x, v.y, v.z ;
 	Vector3D origin = (0,0,0);
@@ -44,12 +40,12 @@ double relative (Vertex v, double plane[4]){
 	Vector3D normal;
 	normal << plane[0], plane[1], plane[2];
 	double dotprod = normal.dot(dir);
-	val = dotprod; 
+	double val = (dotprod - plane[3])/ (v.x*v.x + v.y*v.y + v.z*v.z); 
 	return val;
 
 }
 
-bool create3D::rayCast(Vertex ver, vector<vertex> face){
+bool pointlies(Vertex ver, vector<Vertex> face){
 	///
 	/// Function to check if the Vertex "ver" lies in the parameter "face" or not
 	///
@@ -91,7 +87,7 @@ bool create3D::rayCast(Vertex ver, vector<vertex> face){
 		//
 		//Code to check if the vertex lies using "current", "next" , "prev"
 		//
-		//NAHI BANAYA ABHI TAK. :3
+		
 		
 		i++;
 	}
@@ -101,8 +97,8 @@ bool create3D::rayCast(Vertex ver, vector<vertex> face){
 
 
 
-bool create3D::checkHiddenVertex(Vertex ver, vector<vertex> face, double plane[4]){
-	///
+bool checkHiddenVertex(Vertex ver, vector<Vertex> face, double plane[4]){
+    ///
     /// Function to check if the Point passed as parameter "vertex" is hidden by the face, 
     /// which is passed in the parameter "face", the projection being taken on the plane "plane"
     ///
@@ -119,7 +115,7 @@ bool create3D::checkHiddenVertex(Vertex ver, vector<vertex> face, double plane[4
 	Vector3D perp = direction2.cross(direction1);
 	double faceplane[4] = {perp.x(), perp.y(), perp.z(), perp.dot(vertex1)};
 	Vertex projectedpoint = projection(ver,plane); //make projection
-	if (rayCast(projectedpoint, face)){
+	if (pointlies(projectedpoint, face)){
 		if (relative(ver, faceplane)*relative(projectedpoint,faceplane) > 0 ){ //shows relative position wrt a plane
 			ans = false;
 		}
@@ -128,7 +124,7 @@ bool create3D::checkHiddenVertex(Vertex ver, vector<vertex> face, double plane[4
 	return ans;
 } 
 
-vector<int> create3D::hiddenVertex (Vertex vertex[], bool edgelist[][], vector<vector<vertex>> facelist){
+int[] hiddenVertex(Vertex vertex[], bool edgelist[][], vector<vector<vertex>> facelist){
 	///
 	///given an array of vertices "vertex" with facelist being the list of all the faces and vertex 0 stored as 
 	/// vector<vector<0>>.
@@ -144,9 +140,9 @@ vector<int> create3D::hiddenVertex (Vertex vertex[], bool edgelist[][], vector<v
 		for (int j = 0; j < numoffaces; j++){
  			Vector<vertex> face = facelist.at(j);;
 			Vector3D vertex1, vertex2, vertex3;
-			vertex1 << ver1.x, ver1.y, ver1.z;
-			vertex2 << ver2.x, ver2.y, ver2.z;
-			vertex3 << ver3.x, ver3.y, ver3.z;
+			vertex1 << vertex[0].x, vertex[0].y, vertex[0].z;
+			vertex2 << vertex[1].x, vertex[1].y, vertex[1].z;
+			vertex3 << vertex[2].x, vertex[2].y, vertex[2].z;
 			Vector3D direction1 = vertex2 - vertex1;
 			Vector3D direction2 = vertex3 - vertex1;
 			Vector3D perp = direction2.cross(direction1);
@@ -155,25 +151,12 @@ vector<int> create3D::hiddenVertex (Vertex vertex[], bool edgelist[][], vector<v
 			Vector3D normal = perp / d;
 			double[4] plane = new double[];
 			plane = {perp.x, perp.y, perp.z, n}; 
-			if (checkHiddenVertex(v, face, plane)){hidden[i] = 1;
-							      vertexhiddenbyface.push_back((i,j));}
-			else {continue;}
-			
+			if (checkHiddenVertex(v, face, plane)){hidden[i] = j;
+							       break;}
+							      //vertexhiddenbyface.push_back((i,j));}
+			else {continue;}		
 		}
-	}
-	vector<int> hiddenvertices = new vector<int>();
-	for (int i = 0; i < size; i ++){
-	if (hidden[i] == 1) { hiddenvertices.add(i);}	
-	}
-	return hiddenvertices;	
+	}	
+	return hidden;	
 }
 
-bool create3D::checkHiddenEdge(Edge edge, std::vector<vertex> face, double plane[4]){
-	///
-    /// Function to evaluate if the Edge "edge", passed as parameter is hidden by the face, 
-    /// which is passed in the parameter "face", the projection being taken on the plane "plane"
-    ///
-	
-
-
-}
