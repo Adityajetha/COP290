@@ -1,139 +1,279 @@
-#include <stdio.h>
-#include "vertex.h"
-#include "createedge.h"
-#include "edgelist.h"
 #include "two3.h"
+#include "main.h"
+#include "myarea1.h"
+#include <iostream>
+#include <string.h>
 
-class two3 {
-
-public: bool opn;
-public: int num;
-public: vertex ver[];
-public: std::vector<face> facelist;
-public: std::vector<face> :: iterator iter;
-public: std::vector<face> :: reverse_iterator iter_r;
-two3: int num_faces;
-public:
-    static void main(char *args[]) {
-        std::cin >> num >> std::end;
-        double temp1,temp2;
-        for (int i = 0; i < num; i++) {
-            std::cin>>ver[i].x>>ver[i].y>>std::end;
-        }
-        for (int i = 0; i < num; i++) {
-            std::cin>>temp1>>ver[i].z>>std::end;
-            if(temp!=ver[i].y){
-                ///error
-            }
-        }
-        for (int i = 0; i < num; i++) {
-            std::cin >> temp1 >> temp2 >> std::end;
-            if (temp1 != ver[i].x && temp2 != ver[i].z) {
-                ///error
-            }
-        }
-        for (int i = 0; i < num; i++) {
-            xz();
-        }
-
-        if (!two3::getopn)
-            createedge(edge);///input does not contain the edges
-        else
-            edgelist(edge);///input contains the edges
-        ///for each edge edge[ver_1][ver_2] is true
-    }
-
-two3 :: void detectEdge(){
-  //How to incorporate hidden lines and edges
-  two3:: int num = sizeof(ver)/sizeof(ver[0]); 
-  public::bool[][] edge = new bool[num][num]; //Final adjacency matrix.
-  //xy_edge, yz_edge, zx_edge
-  for(int i =0; i< num; i++){
-    for (int j=0; j< num; j++){
-      edge[i][j] = xy_edge[i][j] * yz_edge[i][j] * zx_edge[i][j]; //checking if it is 1 in all the adjacency matrix
-    }
-  }
-}
-
-//ver[] is the vertex array and edge[][] is the adjacency matrix. So, we have detected the vertices and the edges
-
-bool two3::checkLoop(int a, int b){ 
- 
-}
+Two3::Two3()
+: m_VBox(Gtk::ORIENTATION_VERTICAL),
+  m_Entryx("Top View"),
+  m_Entryy("Front View"),
+  m_Entryz("Side View"),
+  m_Button_Close("Home"),
+  m_CheckButton_Visible("Submit")
+{
+  set_border_width(200);
+  set_title("2D to 3D");
    
-void two3::findedgeloop(){
-  //finds the edgehoops
-  bool[][] edge;
-  vertex[] ver;
-  sort(ver, ver + num); //sorts the vertices, but check if it will.
-  for (int i = 0; i < ver.size(); i++){ 
-   for(int j = 0; j < ver.size(); j++){
+  add(m_VBox);
+  m_VBox.set_spacing(10);
+  m_VBox.pack_start(m_Entryx);
+  m_Entryx.signal_clicked().connect( sigc::mem_fun(*this,
+  &Two3::topview) );
+
+  m_VBox.pack_start(m_Entryy);
+  m_Entryy.signal_clicked().connect( sigc::mem_fun(*this,
+  &Two3::frontview) );
+
+  m_VBox.pack_start(m_Entryz);
+  m_Entryz.signal_clicked().connect( sigc::mem_fun(*this,
+  &Two3::sideview) );
+
+
+  // Note that add() can also be used instead of pack_xxx()
+  m_VBox.add(m_HBox);
+
+  m_HBox.pack_start(m_CheckButton_Visible);
+  m_CheckButton_Visible.signal_clicked().connect( sigc::mem_fun(*this,
+              &Two3::on_checkbox_visibility_toggled) );
+
+  m_Button_Close.signal_clicked().connect( sigc::mem_fun(*this,
+              &Two3::on_button_close) );
+  m_VBox.pack_start(m_Button_Close);
+  m_Button_Close.set_can_default();
+  m_Button_Close.grab_default();
+
+  show_all_children();
+}
+
+Two3::~Two3()
+{
+}
+
+void Two3::topview()
+{
+Gtk::FileChooserDialog dialog1("Please choose a file",
+          Gtk::FILE_CHOOSER_ACTION_OPEN);
+  dialog1.set_transient_for(*this);
+
+  //Add response buttons the the dialog:
+  dialog1.add_button("_Cancel", Gtk::RESPONSE_CANCEL);
+  dialog1.add_button("_Open", Gtk::RESPONSE_OK);
+
+  //Add filters, so that only certain file types can be selected:
+
+  auto filter_text = Gtk::FileFilter::create();
+  filter_text->set_name("Text files");
+  filter_text->add_mime_type("text/plain");
+  dialog1.add_filter(filter_text);
+
+  auto filter_cpp = Gtk::FileFilter::create();
+  filter_cpp->set_name("C/C++ files");
+  filter_cpp->add_mime_type("text/x-c");
+  filter_cpp->add_mime_type("text/x-c++");
+  filter_cpp->add_mime_type("text/x-c-header");
+  dialog1.add_filter(filter_cpp);
+
+  auto filter_any = Gtk::FileFilter::create();
+  filter_any->set_name("Any files");
+  filter_any->add_pattern("*");
+  dialog1.add_filter(filter_any);
+
+  //Show the dialog and wait for a user response:
+  int result = dialog1.run();
+
+  //Handle the response:
+  switch(result)
   {
-   if (checkLoop(i,j) ) 
-   {
-      adj_matrix[i][j] = false; 
-   }
-    else 
-    {continue;}
-    //checks if its an edge loop or not
-  }
-  }
+    case(Gtk::RESPONSE_OK):
+    {
+      std::cout << "Open clicked." << std::endl;
 
-}
-
-two3 :: void makeface(){
-  std::vector<vector<vertex>> facelist;
-  std::vector<vector<vertex>> :: iterator iter;
-  std::vector<vector<vertex>> :: reverse_iterator iter_r;
-  int num_faces = facelist.size();
-  //finds the faces constructed using the actual edge list and the vertices
-
-}
-two3 :: void edgecount(Edge e){ //counts how many times it appears in the vector consisting of faces
-
-
-}
-
-two3:: void checkface(){ 
-
-  //distinguishes between the real and pseudo elements
-  //face is a vector of elements of the face type
-  /*1 : When an edge is adjacent to more than two faces, at most two faces can be true.*/
-  for(int i =0; i< num; i++){
-    for (int j=0; j< num; j++){
-      if (edge[i][j]==1) {
-        for (int k =0; k < num_faces; k++){
-          
-        }       
-      }
+      //Notice that this is a std::string, not a Glib::ustring.
+      str1 = dialog1.get_filename();
+      std::cout << "File selected: " <<  str1 << std::endl;
+      break;
+    }
+    case(Gtk::RESPONSE_CANCEL):
+    {
+      std::cout << "Cancel clicked." << std::endl;
+      break;
+    }
+    default:
+    {
+      std::cout << "Unexpected button clicked." << std::endl;
+      break;
     }
   }
-
-}
- 
-vector<vector<vertex>>* two3::makeWireframe(Projection myproj, vector<vector<vertex>> ){
-///
-  ///
-  /// Input output taken care by Jetha. Make sure this is compatible.
-  ///
-        // we have top front side
-        vector<vector<vertex>> frame;
-    // my projection is the 2D projection.
-        myproj.frontview = front;
-        myproj.sideview = side;
-        myproj.topview = top;
-        // frontview is the front view.
-        // topview is the top view
-        // sideview is the side view
-        frame = myproj.create3D();
-        vector<vector<vertex>>* retFrame;
-        retFrame = new vector<vector<vertex>>();
-        
+  //m_Entryx.get_text();
+  //m_Entryy.get_text();
+  //m_Entryz.get_text();
+  //m_Entryx.set_text("");
+  //m_Entryy.set_text("");
+  //m_Entryz.set_text("");
+  //m_Entry.set_editable(m_CheckButton_Editable.get_active());
 }
 
-two3:: void isometricview(){
-  //produce using 3D description an isometric drawing from any view direction
-  /////
+void Two3::frontview()
+{
+Gtk::FileChooserDialog dialog2("Please choose a file",
+          Gtk::FILE_CHOOSER_ACTION_OPEN);
+  dialog2.set_transient_for(*this);
+
+  //Add response buttons the the dialog:
+  dialog2.add_button("_Cancel", Gtk::RESPONSE_CANCEL);
+  dialog2.add_button("_Open", Gtk::RESPONSE_OK);
+
+  //Add filters, so that only certain file types can be selected:
+
+  auto filter_text = Gtk::FileFilter::create();
+  filter_text->set_name("Text files");
+  filter_text->add_mime_type("text/plain");
+  dialog2.add_filter(filter_text);
+
+  auto filter_cpp = Gtk::FileFilter::create();
+  filter_cpp->set_name("C/C++ files");
+  filter_cpp->add_mime_type("text/x-c");
+  filter_cpp->add_mime_type("text/x-c++");
+  filter_cpp->add_mime_type("text/x-c-header");
+  dialog2.add_filter(filter_cpp);
+
+  auto filter_any = Gtk::FileFilter::create();
+  filter_any->set_name("Any files");
+  filter_any->add_pattern("*");
+  dialog2.add_filter(filter_any);
+
+  //Show the dialog and wait for a user response:
+  int result = dialog2.run();
+
+  //Handle the response:
+  switch(result)
+  {
+    case(Gtk::RESPONSE_OK):
+    {
+      std::cout << "Open clicked." << std::endl;
+
+      //Notice that this is a std::string, not a Glib::ustring.
+      str2 = dialog2.get_filename();
+      std::cout << "File selected: " <<  str2 << std::endl;
+      break;
+    }
+    case(Gtk::RESPONSE_CANCEL):
+    {
+      std::cout << "Cancel clicked." << std::endl;
+      break;
+    }
+    default:
+    {
+      std::cout << "Unexpected button clicked." << std::endl;
+      break;
+    }
+  }
+  //m_Entryx.get_text();
+  //m_Entryy.get_text();
+  //m_Entryz.get_text();
+  //m_Entryx.set_text("");
+  //m_Entryy.set_text("");
+  //m_Entryz.set_text("");
+  //m_Entry.set_editable(m_CheckButton_Editable.get_active());
 }
 
+void Two3::sideview()
+{
+Gtk::FileChooserDialog dialog3("Please choose a file",
+          Gtk::FILE_CHOOSER_ACTION_OPEN);
+  dialog3.set_transient_for(*this);
+
+  //Add response buttons the the dialog:
+  dialog3.add_button("_Cancel", Gtk::RESPONSE_CANCEL);
+  dialog3.add_button("_Open", Gtk::RESPONSE_OK);
+
+  //Add filters, so that only certain file types can be selected:
+
+  auto filter_text = Gtk::FileFilter::create();
+  filter_text->set_name("Text files");
+  filter_text->add_mime_type("text/plain");
+  dialog3.add_filter(filter_text);
+
+  auto filter_cpp = Gtk::FileFilter::create();
+  filter_cpp->set_name("C/C++ files");
+  filter_cpp->add_mime_type("text/x-c");
+  filter_cpp->add_mime_type("text/x-c++");
+  filter_cpp->add_mime_type("text/x-c-header");
+  dialog3.add_filter(filter_cpp);
+
+  auto filter_any = Gtk::FileFilter::create();
+  filter_any->set_name("Any files");
+  filter_any->add_pattern("*");
+  dialog3.add_filter(filter_any);
+
+  //Show the dialog and wait for a user response:
+  int result = dialog3.run();
+
+  //Handle the response:
+  switch(result)
+  {
+    case(Gtk::RESPONSE_OK):
+    {
+      std::cout << "Open clicked." << std::endl;
+
+      //Notice that this is a std::string, not a Glib::ustring.
+      str3 = dialog3.get_filename();
+      std::cout << "File selected: " <<  str3 << std::endl;
+      break;
+    }
+    case(Gtk::RESPONSE_CANCEL):
+    {
+      std::cout << "Cancel clicked." << std::endl;
+      break;
+    }
+    default:
+    {
+      std::cout << "Unexpected button clicked." << std::endl;
+      break;
+    }
+  }
+  //m_Entryx.get_text();
+  //m_Entryy.get_text();
+  //m_Entryz.get_text();
+  //m_Entryx.set_text("");
+  //m_Entryy.set_text("");
+  //m_Entryz.set_text("");
+  //m_Entry.set_editable(m_CheckButton_Editable.get_active());
+}
+
+
+void Two3::on_checkbox_visibility_toggled()
+{
+   int k=0;
+double zr=1,xr=0,yr=0,t=0,s=0;
+
+   Gtk::Window* win = new Gtk::Window();
+   win->set_title("3D Object");
+   win->show();
+   MyArea1* area=new MyArea1(str1,str2,str3);
+   win->add(*area);
+   area->show();
+   //area->hide();
+   /*while(k<10){
+   
+   sleep(2);
+   win->close();
+   win = new Gtk::Window();
+   area=new MyArea1(str1,str2,str3,xr,yr,zr);
+   win->add(*area);
+   area->show();
+   win->show();
+   t+=1.11;
+s+=1.21;
+zr=cos(t/180);
+yr=sin(t/180);
+k++;}*/
+   
+  //m_Entry.set_visibility(m_CheckButton_Visible.get_active());
+}
+
+void Two3::on_button_close()
+{
+  hide();
 }
