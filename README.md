@@ -9,19 +9,37 @@ The package has following functionalities :
 3. Given two or more projections we should be able to interactively recover the 3D description and produce an isometric drawing from any view direction.
 
 # Organisation of the code :
-The package structure for the software pckage is as follows :
-Engineering Drawing Software 
-
 Following is the description of the directories:
 
 
 # GTKMM :
 
+The project makes use of the GTKmm libraries for C++.
+Hence this package is needed to be installed before running the software package.
+Use the following command:
+```
+sudo apt-get install libgtkmm-3.0-dev
+```
+The above command installs the requisite packages. Now the software package can be built and used.
+
 # Compilation and execution instructions :
+
+Enter the project directory and run the following command
+```
+make
+```
+Then cd into the build folder and run the following
+```
+./main
+```
 
 # Assumptions :
 
+Given in the design document. 
+
 # Things that has been deleted/changed since the last submission : 
+
+Some of the functions have been deleted and incorporated in the main file. Files like hidden.cpp have been combined with the code and the structure of individual classes and header files have been somewhat changed on the suggestion of TA and the professor. New features like the hidden lines that have been mentioned in design document have been built upon and executed. 
 
 
 
