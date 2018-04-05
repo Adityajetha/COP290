@@ -83,14 +83,13 @@ bool checkHiddenVertex(vertex v, std::vector<int>* face, vertex* ver[]){
 
 }
 
-
-int* hiddenVertex(vertex* ver[], vector<vector<int>*>* facelist,int num){
+vector<int> hiddenVertex(vertex* ver[], vector<vector<int>*>* facelist,int num){
 	///
-	///given an array of vertices "vertex" with facelist being the list of all the faces and vertex 0 stored as 
+	///given an int vector of vertices "vertex" with facelist being the list of all the faces and vertex 0 stored as 
 	/// vector<vector<0>>.
 	///
 	
-	int *hidden;
+	vector<int> hidden = new vector<int>();
 	int numoffaces = facelist->size();
         std::vector<int>* face;
 	vertex vertex1, vertex2, vertex3, direction1,direction2,perp;
@@ -99,6 +98,7 @@ int* hiddenVertex(vertex* ver[], vector<vector<int>*>* facelist,int num){
 	//int hidden[] = new int[size]; //keeps track of hidden vertices
 	//vector<(int,int)> vertexhiddenbyface = new vector<>(); //keeps track of which vertex is hidden by which face
 	for (int i = 0; i < num; i++){
+		int flag = 0;
 		v = *(ver[i]);
 		//double zcoordinate = v.z;
 		
@@ -117,14 +117,61 @@ int* hiddenVertex(vertex* ver[], vector<vector<int>*>* facelist,int num){
                         plane[2] = perp.z;
                         plane[3] = n;
 			
-			if (checkHiddenVertex(v, face,ver)){*(hidden+4*i) = j;
-							       break;}
+			if (checkHiddenVertex(v, face, ver)){hidden.push_back(j);
+							     flag = 1;
+							     break;}
 							      //vertexhiddenbyface.push_back((i,j));}
 			else {continue;}		
 		}
+		if (flag == 0) {hidden.push_back(-1);}
+		
 	}	
 	return hidden;	
 }
+
+
+
+// int* hiddenVertex(vertex* ver[], vector<vector<int>*>* facelist,int num){
+// 	///
+// 	///given an array of vertices "vertex" with facelist being the list of all the faces and vertex 0 stored as 
+// 	/// vector<vector<0>>.
+// 	///
+	
+// 	int *hidden;
+// 	int numoffaces = facelist->size();
+//         std::vector<int>* face;
+// 	vertex vertex1, vertex2, vertex3, direction1,direction2,perp;
+//         vertex v;
+//         double d, n , plane[4];
+// 	//int hidden[] = new int[size]; //keeps track of hidden vertices
+// 	//vector<(int,int)> vertexhiddenbyface = new vector<>(); //keeps track of which vertex is hidden by which face
+// 	for (int i = 0; i < num; i++){
+// 		v = *(ver[i]);
+// 		//double zcoordinate = v.z;
+		
+// 		for (int j = 0; j < numoffaces; j++){
+//  			face = facelist->at(j);;
+// 			vertex1 = *(ver[face->at(0)]);
+// 			vertex2 = *(ver[face->at(1)]);
+// 			vertex3 = *(ver[face->at(2)]);
+// 			direction1 = vertex2.sub(vertex2,vertex1);
+// 			direction2 = vertex3.sub(vertex3,vertex1);
+// 			perp = direction2.cross(direction2,direction1);
+// 			d = std::sqrt(perp.x*perp.x + perp.y*perp.y + perp.z*perp.z);
+// 			n = perp.dot(vertex1);
+// 			plane[0] = perp.x;
+//                         plane[1] = perp.y;
+//                         plane[2] = perp.z;
+//                         plane[3] = n;
+			
+// 			if (checkHiddenVertex(v, face, ver)){*(hidden+4*i) = j;
+// 							       break;}
+// 							      //vertexhiddenbyface.push_back((i,j));}
+// 			else {continue;}		
+// 		}
+// 	}	
+// 	return hidden;	
+// }
 
 
 void inter(vertex* hid, vertex* show,std::vector<int>* face, vertex* ver[], double* x, double* y){
@@ -209,7 +256,7 @@ int num;
 	vertex* ver[num];
 	bool adj_matrix[num][num];
         int edges[num][num];
-        int* hidden;
+        vector<int> hidden;
         double xint,yint;
         std::vector<std::vector<int>*>* faces = new std::vector<std::vector<int>*>;
 	for(int i=0;i<num;i++){
@@ -243,7 +290,7 @@ vertex* mid = new vertex;
 if(zr<0.000001&&yr<0.000001)
 {xr=xr*100000 + 1;yr=0.01;}
 
-for(int i=0;i<num;i++){ver[i]->rotat(xr,yr,zr);*(hidden+4*i)= -1;}
+for(int i=0;i<num;i++){ver[i]->rotat(xr,yr,zr);}//*(hidden+4*i)= -1;}
 hidden = hiddenVertex(ver, faces,num);
 //hidden[4]=4;
 for(int i=0;i<num;i++){
@@ -252,15 +299,15 @@ for(int i=0;i<num;i++){
    mid->x=(ver[i]->x+ver[j]->x)/2;
    mid->y=(ver[i]->y+ver[j]->y)/2;
    mid->z=(ver[i]->z+ver[j]->z)/2;
-   if(*(hidden+4*i)== -1 && *(hidden+4*j)== -1  && !checkhid(mid,faces,ver)){
+   if(hidden.at(i)== -1 && hidden.at(j)== -1  && !checkhid(mid,faces,ver)){
     edges[i][j]=1;
     edges[j][i]=1;
    }
-   else if(*(hidden+4*i)==-1&&  *(hidden+4*j)!=-1){
+   else if(hidden.at(i)==-1&&  hidden.at(j)!=-1){
     edges[i][j]=2;
     edges[j][i]=3;
    }
-   else if(*(hidden+4*i)!=-1&&  *(hidden+4*j)==-1){
+   else if(hidden.at(i)!=-1&&  hidden.at(j)==-1){
     edges[i][j]=3;
     edges[j][i]=2;
    }
@@ -290,7 +337,7 @@ cr->stroke();
 }
 else if(edges[i][j]==2){
 ///find intersection
-inter(ver[j],ver[i],faces->at(*(hidden+4*j)),ver,&xint,&yint);
+inter(ver[j],ver[i],faces->at(hidden.at(j)),ver,&xint,&yint);
 std::cout<<xint<<yint;
 cr->move_to(xc+ver[i]->x,yc+ver[i]->y);
 cr->set_dash(dash1,0);
@@ -303,7 +350,7 @@ cr->stroke();
 }
 else if(edges[i][j]==3){
 ///find intersection
-inter(ver[i],ver[j],faces->at(hidden[i]),ver,&xint,&yint);
+inter(ver[i],ver[j],faces->at(hidden.at(i)),ver,&xint,&yint);
 cr->move_to(xc+ver[j]->x,yc+ver[j]->y);
 cr->set_dash(dash1,0);
 cr->line_to(xc+xint,yc+yint);
