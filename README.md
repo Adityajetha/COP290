@@ -10,6 +10,15 @@ The package has following functionalities :
 
 # Organisation of the code :
 Following is the description of the directories:
+1. **build** : The executable and dependent files/binaries </br>
+2. **doc** : Documentation and related files </br>
+i) *doc* : Source files for doxygen </br>
+ii) *doxygen* : Doxygen generated documentation and class structure of the software. Also contains inital source files for documentation.</br>
+iii) *latex* : Mathematical model description</br>
+iv) *Functional Description* : StarUML functional description of all the features and parts of the software.</br>
+3. **bin** : .o files 
+4. **src** : source (C++) files developed for the software</br>
+5. **include** : some exemplar files (.txt) used for testing</br>
 
 
 # GTKMM :
