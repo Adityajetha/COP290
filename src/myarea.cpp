@@ -40,20 +40,28 @@ vertex projection (vertex v, double plane[4]){
 	return projectedpoint;
 }	
 
-double relative (vertex v, double plane[4]){
+bool relative (vertex v, std::vector<int>* face,vertex* ver[] ){
 	///
-	/// Mathematical function which computes the relative position of a point wrt a "plane" which has a,b,c,n stored where ax + by+ cz = d.r is the equation of the plane
+	/// Mathematical function which computes the relative1 position of a point wrt a "plane" which has a,b,c,n stored where ax + by+ cz = d.r is the equation of the plane
 	///
 	 
 	//Vector3D ver;
 	//ver << v.x, v.y, v.z ;
-	vertex origin; origin = *(new vertex(0,0,0));
-	vertex dir = v.sub(v,origin);
-	vertex normal = *(new vertex(plane[0],plane[1],plane[2]));
-	//normal << plane[0], plane[1], plane[2];
-	double dotprod = normal.dot(dir);
-	double val = (dotprod - plane[3])/ (v.x*v.x + v.y*v.y + v.z*v.z); 
-	return val;
+        double xcr,ycr,zcr;
+        bool ans=false;
+        for(int i=0;i<face->size();i++){xcr+=ver[(face->at(i))]->x;ycr+=ver[(face->at(i))]->y;zcr+=ver[(face->at(i))]->z;}
+        xcr=xcr/face->size();
+        ycr=ycr/face->size();
+        zcr=zcr/face->size();
+        vertex vertex1;
+        vertex vertex2;
+	for(int i=0;i<face->size();i++){
+        vertex1 = *ver[face->at(i)];
+        vertex2 = *ver[(face->at(i)+1)%face->size()];
+        ans = ans||((xcr-vertex1.x)*(vertex2.y -vertex1.y)- (ycr-vertex1.y)*(vertex2.x - vertex1.x))*((v.x-vertex1.x)*(vertex2.y - vertex1.y) - (v.y-vertex1.y)*(vertex2.x - vertex1.x))<=0;
+        }
+	//normal << plane[0], plane[1], plane[2]; 
+	return ans;
 
 }
 
@@ -73,15 +81,14 @@ bool checkHiddenVertex(vertex v, std::vector<int>* face, vertex* ver[]){
 			//double d = std::sqrt(perp.x*perp.x + perp.y*perp.y + perp.z*perp.z);
 			double n = perp.dot(vertex1);
 			double plane[] = {perp.x, perp.y, perp.z, n}; 
-	if (v.x*plane[0] + v.y*plane[1] + v.z*plane[2] == plane[3]){
+                        double z = (plane[3] - plane[0]*v.x + plane[1]*v.y)/(plane[2]+0.0001) ;
+	if (z>0){
 		return false;
 	}
-	if (relative(v, plane) * relative(viewingdirection, plane) >= 0) {
-		return false;
-	}
-	else {return true;}
+	else return !relative(v, face,ver);
 
 }
+
 
 vector<int> hiddenVertex(vertex* ver[], vector<vector<int>*>* facelist,int num){
 	///
@@ -89,7 +96,7 @@ vector<int> hiddenVertex(vertex* ver[], vector<vector<int>*>* facelist,int num){
 	/// vector<vector<0>>.
 	///
 	
-	vector<int> hidden = new vector<int>();
+	vector<int>* hidden = new vector<int>();
 	int numoffaces = facelist->size();
         std::vector<int>* face;
 	vertex vertex1, vertex2, vertex3, direction1,direction2,perp;
@@ -110,24 +117,25 @@ vector<int> hiddenVertex(vertex* ver[], vector<vector<int>*>* facelist,int num){
 			direction1 = vertex2.sub(vertex2,vertex1);
 			direction2 = vertex3.sub(vertex3,vertex1);
 			perp = direction2.cross(direction2,direction1);
-			d = std::sqrt(perp.x*perp.x + perp.y*perp.y + perp.z*perp.z);
+			d = std::sqrt(perp.x*perp.x + perp.y*perp.y + perp.z*perp.z + 0.1);
 			n = perp.dot(vertex1);
 			plane[0] = perp.x;
                         plane[1] = perp.y;
                         plane[2] = perp.z;
                         plane[3] = n;
 			
-			if (checkHiddenVertex(v, face, ver)){hidden.push_back(j);
+			if (checkHiddenVertex(v, face, ver)){hidden->push_back(j);
 							     flag = 1;
 							     break;}
 							      //vertexhiddenbyface.push_back((i,j));}
 			else {continue;}		
 		}
-		if (flag == 0) {hidden.push_back(-1);}
+		if (flag == 0) {hidden->push_back(-1);}
 		
 	}	
-	return hidden;	
+	return *hidden;	
 }
+
 
 
 
@@ -174,7 +182,7 @@ vector<int> hiddenVertex(vertex* ver[], vector<vector<int>*>* facelist,int num){
 // }
 
 
-void inter(vertex* hid, vertex* show,std::vector<int>* face, vertex* ver[], double* x, double* y){
+/*void inter(vertex* hid, vertex* show,std::vector<int>* face, vertex* ver[], double* x, double* y){
  double b=show->x - hid->x;
  double a=hid->y - show->y;
  double c=b*(show->y)+a*(show->x);
@@ -201,7 +209,7 @@ void inter(vertex* hid, vertex* show,std::vector<int>* face, vertex* ver[], doub
    //std::cout<<"   thus"<<*x<<*y<<"end   ";
   }
  } 
-}
+}*/
 
 
 bool checkhid(vertex* mid, std::vector<std::vector<int>*>* faces, vertex* ver[]){
@@ -287,22 +295,27 @@ inFile.close();
 vertex* mid = new vertex;
   // draw red lines out from the center of the window
   cr->set_source_rgb(0, 0, 0);
-if(zr<0.000001&&yr<0.000001)
+if(zr<0.000001&&yr<0.000001&&zr>-0.000001&&yr>-0.000001)
 {xr=xr*100000 + 1;yr=0.01;}
 
 for(int i=0;i<num;i++){ver[i]->rotat(xr,yr,zr);}//*(hidden+4*i)= -1;}
 hidden = hiddenVertex(ver, faces,num);
-//hidden[4]=4;
+/*hidden.push_back(-1);
+hidden.push_back(-1);
+hidden.push_back(-1);
+hidden.push_back(-1);
+hidden.push_back(-1);*/
 for(int i=0;i<num;i++){
  for(int j=i;j<num;j++){
   if(adj_matrix[i][j]==1){
    mid->x=(ver[i]->x+ver[j]->x)/2;
    mid->y=(ver[i]->y+ver[j]->y)/2;
    mid->z=(ver[i]->z+ver[j]->z)/2;
-   if(hidden.at(i)== -1 && hidden.at(j)== -1  && !checkhid(mid,faces,ver)){
+   std::cout<<"x   "<<mid->x<<"   "<<mid->y<<"  "<<mid->z;
+   if(hidden.at(i)== -1 && hidden.at(j)== -1 && !checkhid(mid,faces,ver)){
     edges[i][j]=1;
     edges[j][i]=1;
-   }
+   }/*
    else if(hidden.at(i)==-1&&  hidden.at(j)!=-1){
     edges[i][j]=2;
     edges[j][i]=3;
@@ -310,7 +323,7 @@ for(int i=0;i<num;i++){
    else if(hidden.at(i)!=-1&&  hidden.at(j)==-1){
     edges[i][j]=3;
     edges[j][i]=2;
-   }
+   }*/
    else {
    edges[i][j]=4;
    edges[i][j]=4;
@@ -319,6 +332,7 @@ for(int i=0;i<num;i++){
   else {edges[i][j]=0;edges[j][i]=0;}
  }
 }
+//for(int i=0;i<num;i++){std::cout<<i<<"is"<<hidden.at(i)<<"   ";}
 std::vector<double> dash = *(new std::vector<double>);
 dash.push_back(4); 
 std::vector<double> dash1 = *(new std::vector<double>);
@@ -326,7 +340,7 @@ dash1.push_back(4);
 dash1.push_back(0); 
   for(int i=0;i<num;i++){
     for(int j=i;j<num;j++){
-        //std::cout<<edges[i][j];
+        //std::cout<<"   "<<edges[i][j];
         if(adj_matrix[i][j])
 {
 if(edges[i][j]==1){
@@ -337,8 +351,8 @@ cr->stroke();
 }
 else if(edges[i][j]==2){
 ///find intersection
-inter(ver[j],ver[i],faces->at(hidden.at(j)),ver,&xint,&yint);
-std::cout<<xint<<yint;
+//inter(ver[j],ver[i],faces->at(hidden.at(j)),ver,&xint,&yint);
+//std::cout<<xint<<yint;
 cr->move_to(xc+ver[i]->x,yc+ver[i]->y);
 cr->set_dash(dash1,0);
 cr->line_to(xc+xint,yc+yint);
@@ -350,7 +364,7 @@ cr->stroke();
 }
 else if(edges[i][j]==3){
 ///find intersection
-inter(ver[i],ver[j],faces->at(hidden.at(i)),ver,&xint,&yint);
+//inter(ver[i],ver[j],faces->at(hidden.at(i)),ver,&xint,&yint);
 cr->move_to(xc+ver[j]->x,yc+ver[j]->y);
 cr->set_dash(dash1,0);
 cr->line_to(xc+xint,yc+yint);
@@ -361,8 +375,10 @@ cr->line_to(xc+ver[i]->x,yc+ver[j]->y);
 cr->stroke();
 }
 else{
+cr->set_dash(dash,1);
 cr->move_to(xc+ver[i]->x,yc+ver[i]->y);
-//cr->line_to(xc+ver[j]->x,yc+ver[j]->y);
+cr->line_to(xc+ver[j]->x,yc+ver[j]->y);
+cr->stroke();
 }
 }
   }}
