@@ -217,7 +217,7 @@ bool checkhid(vertex* mid, std::vector<std::vector<int>*>* faces, vertex* ver[])
  for(int i=0;i<faces->size();i++)
  {
   hid=hid||checkHiddenVertex(*mid,faces->at(i),ver);
- }teturn hid;
+ }return hid;
 }
 
 
